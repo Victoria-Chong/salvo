@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
@@ -23,6 +24,9 @@ public class GamePlayer {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="gameID")
     private Game gameID;
+
+    @OneToMany(mappedBy="gamePlayerID", fetch=FetchType.EAGER)
+    private Set<Ship> ships;
 
     public GamePlayer(){}
 
