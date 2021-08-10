@@ -1,9 +1,12 @@
 package com.codeoftheweb.salvo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -24,6 +27,21 @@ public class Game {
         this.creationDate = creationDate;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Map<String, Object> makeGameDTO(){
+        Map<String, Object> dto = new LinkedHashMap<>();
+        dto.put("id", this.getId());
+        dto.put("created", this.getCreationDate());
+        dto.put("gamePlayers", this.getGamePlayer()
+                .stream()
+                .map(x -> x.makeGamePlayerDTO())
+                .collect(Collectors.toList()));
+        return dto;
+    }
+
     public LocalDateTime getCreationDate() {
         return creationDate;
     }
@@ -40,6 +58,7 @@ public class Game {
         this.gamePlayer = gamePlayer;
     }
 
+    @JsonIgnore
     public List<Player> getPlayer() {
         return gamePlayer.stream().map(sub -> sub.getPlayerID()).collect(Collectors.toList());
     }

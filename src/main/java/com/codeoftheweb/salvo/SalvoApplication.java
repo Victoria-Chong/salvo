@@ -31,8 +31,10 @@ public class SalvoApplication {
 			gameRepository.save(game3);
 			GamePlayer gamePlayer1 = new GamePlayer(player1, game1, LocalDateTime.now());
 			GamePlayer gamePlayer2 = new GamePlayer(player2, game1, LocalDateTime.now());
+			GamePlayer gamePlayer3 = new GamePlayer(player1, game1, LocalDateTime.now());
 			gamePlayerRepository.save(gamePlayer1);
 			gamePlayerRepository.save(gamePlayer2);
+			gamePlayerRepository.save(gamePlayer3);
 		};
 	}
 }

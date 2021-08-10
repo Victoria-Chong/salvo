@@ -1,8 +1,11 @@
 package com.codeoftheweb.salvo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,6 +26,17 @@ public class Player {
         this.userName = userName;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Map<String, Object> makePlayerDTO(){
+        Map<String, Object> dto = new LinkedHashMap<>();
+        dto.put("id", this.getId());
+        dto.put("email", this.getUserName());
+        return dto;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -39,6 +53,7 @@ public class Player {
         this.gamePlayer = gamePlayer;
     }
 
+    @JsonIgnore
     public List<Game> getGame() {
         return gamePlayer.stream().map(sub -> sub.getGameID()).collect(Collectors.toList());
     }
