@@ -18,7 +18,7 @@ public class Game {
     private Long id;
     private LocalDateTime creationDate;
 
-    @OneToMany(mappedBy="gameID", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
     private Set<GamePlayer> gamePlayer;
 
     private Game(){}
@@ -60,6 +60,6 @@ public class Game {
 
     @JsonIgnore
     public List<Player> getPlayer() {
-        return gamePlayer.stream().map(sub -> sub.getPlayerID()).collect(Collectors.toList());
+        return gamePlayer.stream().map(sub -> sub.getPlayer()).collect(Collectors.toList());
     }
 }

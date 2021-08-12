@@ -17,7 +17,7 @@ public class Player {
     private Long id;
     private String userName;
 
-    @OneToMany(mappedBy="playerID", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
     private Set<GamePlayer> gamePlayer;
 
     public Player(){}
@@ -55,6 +55,6 @@ public class Player {
 
     @JsonIgnore
     public List<Game> getGame() {
-        return gamePlayer.stream().map(sub -> sub.getGameID()).collect(Collectors.toList());
+        return gamePlayer.stream().map(sub -> sub.getGame()).collect(Collectors.toList());
     }
 }
